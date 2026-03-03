@@ -22,13 +22,14 @@ https://mpplus.qlulezz.de/
 
 The overlay can be visually adjusted. Changes are made through URL parameters.
 
-Example: `https://mpplus.qlulezz.de/?position=bottom-left`
+Example: `https://mpplus.qlulezz.de/?position=bottom-left&scale=1.2`
 
 The following settings are currently supported:
 
 | Name     | Explanation                            | Default  | Example                | Accepted values                                |
 | -------- | -------------------------------------- | -------- | ---------------------- | ---------------------------------------------- |
 | position | Which corner should the overlay go in? | top-left | ?position=bottom-right | top-left, top-right, bottom-left, bottom-right |
+| scale    | scale multiplier                       | 1.0      | ?scale=1.5             | Float between 0 and Infinity                   |
 
 More settings will be added later.
 

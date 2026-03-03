@@ -1,16 +1,22 @@
 .overlay {
-  --space: 0.2rem;
-  display: flex;
-  flex-direction: column;
   width: 100vw;
   height: 100vh;
+}
+
+.players {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  --space: 0.2rem;
   padding: var(--space);
   gap: var(--space);
 }
 
 /* Corner styles */
 
-.overlay {
+.players {
   /* Default: top-left */
   align-items: flex-start;
   justify-content: flex-start;
