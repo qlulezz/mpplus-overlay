@@ -60,6 +60,7 @@ export default function Overlay() {
       return <Player key={id} rank={rank} player={p} />;
   });
 
+  // Reverse order if the overlay is positioned at the bottom
   if (queryPosition === "bottom-left" || queryPosition === "bottom-right")
     renderedPlayers.reverse();
 

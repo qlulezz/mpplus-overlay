@@ -35,13 +35,14 @@ export default function useMultiplayer() {
   }, [readyState]);
 
   useEffect(() => {
-    async function run() {
+    function checkPacket() {
       if (!lastJsonMessage) return;
       const packet = lastJsonMessage as Packet;
 
       // First message is the handshake
       // It includes info about the current player
       if (packet._type === "handshake") {
+        console.info("BeatSaberPlus Handshake:", packet);
         setHandshake(packet);
         return;
       }
@@ -57,24 +58,15 @@ export default function useMultiplayer() {
         return;
       }
 
-      // If a player leaves, set a flag
+      // If a player leaves, remove them from the list
       if (ev === "PlayerLeaved") {
         setConnectedPlayers((prev) =>
-          prev.map((p) => {
-            if (p.player.LUID === packet.PlayerLeaved.LUID) {
-              return {
-                ...p,
-                left: true,
-              };
-            }
-            return p;
-          }),
+          prev.filter((p) => p.player.LUID !== packet.PlayerLeaved.LUID),
         );
         return;
       }
 
-      // If a player joins, initialize the player info
-      // and add them to the list of currently connected players
+      // If a player joins add them to the list of connected players
       if (ev === "PlayerJoined") {
         const userId = packet.PlayerJoined.UserID;
 
@@ -93,7 +85,6 @@ export default function useMultiplayer() {
               Failed: false,
               Deleted: false,
             },
-            left: false,
           };
 
           if (existingIndex !== -1) {
@@ -129,117 +120,21 @@ export default function useMultiplayer() {
       }
 
       // We only care about Score events now
-      if (ev !== "Score") {
-        return;
-      }
-
-      // Update the players score
+      if (ev !== "Score") return;
       setConnectedPlayers((prev) =>
         prev.map((p) => {
           if (p.player.LUID === packet.Score.LUID) {
-            const incoming = packet.Score;
-            const updatedScore = incoming.Failed
-              ? {
-                  ...incoming,
-                  Score: incoming.Score * 2,
-                  Accuracy: incoming.Accuracy * 2,
-                }
-              : incoming;
-
             return {
               ...p,
-              score: updatedScore,
+              score: packet.Score,
             };
           }
           return p;
         }),
       );
     }
-    run();
+    checkPacket();
   }, [lastJsonMessage]);
 
   return { connectionState, readyState, handshake, connectedPlayers };
 }
-
-// const testingData = [
-//   {
-//     player: {
-//       LUID: 123,
-//       UserID: "76561198837548711",
-//       UserName: "Miljon",
-//       Spectating: false,
-//     },
-//     score: {
-//       LUID: 123,
-//       Score: 123456,
-//       Accuracy: 0.9812,
-//       Combo: 123,
-//       MissCount: 2,
-//       Failed: false,
-//       Deleted: false,
-//       Spectating: false,
-//       Left: false,
-//     },
-//     left: false,
-//   },
-//   {
-//     player: {
-//       LUID: 125,
-//       UserID: "76561198352104510",
-//       UserName: "wopsi ‹𝟹",
-//       Spectating: false,
-//     },
-//     score: {
-//       LUID: 123,
-//       Score: 456123,
-//       Accuracy: 0.9583,
-//       Combo: 123,
-//       MissCount: 0,
-//       Failed: false,
-//       Deleted: false,
-//       Spectating: false,
-//       Left: false,
-//     },
-//     left: false,
-//   },
-//   {
-//     player: {
-//       LUID: 126,
-//       UserID: "76561198352104510",
-//       UserName: "wopsi ‹𝟹",
-//       Spectating: false,
-//     },
-//     score: {
-//       LUID: 123,
-//       Score: 456123,
-//       Accuracy: 0.9583,
-//       Combo: 123,
-//       MissCount: 0,
-//       Failed: false,
-//       Deleted: false,
-//       Spectating: false,
-//       Left: false,
-//     },
-//     left: false,
-//   },
-//   {
-//     player: {
-//       LUID: 127,
-//       UserID: "76561198352104510",
-//       UserName: "wopsi ‹𝟹",
-//       Spectating: false,
-//     },
-//     score: {
-//       LUID: 123,
-//       Score: 456123,
-//       Accuracy: 0.9583,
-//       Combo: 123,
-//       MissCount: 0,
-//       Failed: false,
-//       Deleted: false,
-//       Spectating: false,
-//       Left: false,
-//     },
-//     left: false,
-//   },
-// ];

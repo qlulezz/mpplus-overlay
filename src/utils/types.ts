@@ -5,7 +5,6 @@ export type Packet = Handshake | RoomEvent | PlayerEvent | ScoreEvent;
 export type PlayerType = {
   player: PlayerBase;
   score: Score;
-  left: boolean;
 };
 
 export interface Handshake {
@@ -91,5 +90,4 @@ export interface Score {
   Failed?: boolean;
   Deleted?: boolean;
   Spectating?: boolean;
-  Left?: boolean;
 }
