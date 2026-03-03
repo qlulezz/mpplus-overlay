@@ -1,0 +1,47 @@
+.overlay {
+  --space: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  padding: var(--space);
+  gap: var(--space);
+}
+
+/* Corner styles */
+
+.overlay {
+  /* Default: top-left */
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.top_left {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.top_right {
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.bottom_left {
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.bottom_right {
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.divider {
+  width: 28.75rem;
+  height: 2em;
+  font-weight: bold;
+  background-color: var(--clr-divider);
+  padding: 0.2em 0.5em 0.8em 0.5em;
+  gap: 0.5em;
+  border-radius: 0.25em;
+}

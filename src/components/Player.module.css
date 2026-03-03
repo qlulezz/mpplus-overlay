@@ -1,0 +1,44 @@
+.player {
+  display: grid;
+  grid-template-columns: 2em 2em 7em 4em 2.5em 4em;
+  align-items: center;
+  background-color: #6f6f6f;
+  padding: 0.5em;
+  gap: 0.5em;
+  border-radius: 0.25em;
+  width: fit-content;
+}
+
+.score,
+.miss {
+  text-align: center;
+}
+
+.acc {
+  text-align: right;
+}
+
+.rank {
+  font-weight: bold;
+}
+
+.avatar {
+  border-radius: 100vh;
+  width: 2em;
+  height: 2em;
+}
+
+.first {
+  zoom: 1.15;
+  background-color: var(--clr-first);
+}
+
+.second {
+  zoom: 1.1;
+  background-color: var(--clr-second);
+}
+
+.third {
+  zoom: 1.05;
+  background-color: var(--clr-third);
+}
