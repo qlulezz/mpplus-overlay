@@ -4,6 +4,7 @@ import useMultiplayer from "./hooks/useMultiplayer";
 import styles from "./Overlay.module.css";
 import { parseAsFloat, parseAsString, useQueryState } from "nuqs";
 import autoAnimate from "@formkit/auto-animate";
+import Separator from "./components/Separator";
 
 const overlayPositions: Record<string, string> = {
   "top-left": styles.top_left,
@@ -47,15 +48,10 @@ export default function Overlay() {
     // Render up to 4 players
     if (i < 4) return <Player key={id} rank={rank} player={p} />;
 
-    // Render divider if over 5 players
-    if (count > 5 && rank === 5)
-      return (
-        <p key={0} className={styles.divider}>
-          ...
-        </p>
-      );
+    // Render seprator if over 5 players
+    if (count > 5 && rank === 5) return <Separator key={0} />;
 
-    // Render last player
+    // Render last player (or 5th player)
     if (count > 4 && rank === count)
       return <Player key={id} rank={rank} player={p} />;
   });

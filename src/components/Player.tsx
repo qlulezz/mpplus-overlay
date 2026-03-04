@@ -26,11 +26,16 @@ export default function Player({ rank, player }: PlayerProps) {
   // Add 'x' for misses, otherwise show 'FC'
   const miss = player.score.MissCount ? player.score.MissCount + "x" : "FC";
 
-  const rankStyle = rank <= 3 ? rankStyles[rank - 1] : "";
+  // Apply styles to the first three players, but only if the score is not 0
+  const rankStyle =
+    rank <= 3 && player.score.Score !== 0 ? rankStyles[rank - 1] : "";
+
+  // Set the rank to 0 when the score is 0
+  const userRank = player.score.Score !== 0 ? rank : 0;
 
   return (
     <div className={`${styles.player} ${rankStyle}`}>
-      <p className={styles.rank}>#{rank}</p>
+      <p className={styles.rank}>#{userRank}</p>
       <img src={avatarUrl} alt="" className={styles.avatar} />
       <p className={styles.name}>{player.player.UserName}</p>
       <p className={styles.score}>{score}</p>

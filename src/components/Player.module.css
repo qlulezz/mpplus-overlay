@@ -1,12 +1,25 @@
 .player {
   display: grid;
-  grid-template-columns: 2em 2em 7em 4em 2.5em 4em;
+  grid-template-columns:
+    var(--w-rank)
+    var(--w-avatar)
+    var(--w-name)
+    var(--w-score)
+    var(--w-miss)
+    var(--w-acc);
+
   align-items: center;
   background-color: #6f6f6f;
-  padding: 0.5em;
-  gap: 0.5em;
+  padding: var(--padding);
+  gap: var(--gap);
   border-radius: 0.25em;
-  width: fit-content;
+}
+
+.name {
+  max-width: 10em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .score,
@@ -26,19 +39,24 @@
   border-radius: 100vh;
   width: 2em;
   height: 2em;
+  max-width: 2em;
+  max-height: 2em;
 }
 
 .first {
-  zoom: 1.15;
+  /* zoom: 1.15; */
+  font-size: 1.15em;
   background-color: var(--clr-first);
 }
 
 .second {
-  zoom: 1.1;
+  /* zoom: 1.1; */
+  font-size: 1.1em;
   background-color: var(--clr-second);
 }
 
 .third {
-  zoom: 1.05;
+  /* zoom: 1.05; */
+  font-size: 1.05em;
   background-color: var(--clr-third);
 }

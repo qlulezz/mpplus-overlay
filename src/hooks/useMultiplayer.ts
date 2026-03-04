@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import type { Handshake, PlayerType, Packet } from "../utils/types";
+import useTestData from "./useTestData";
 
 // BeatSaberPlus WebSocket URL for Room Info and Scores
 const webSocketUrl = "ws://127.0.0.1:2948/socket";
@@ -14,12 +15,16 @@ const connectionStatus = {
   [ReadyState.UNINSTANTIATED]: "Uninstantiated",
 };
 
-export default function useMultiplayer() {
+export default function useMultiplayer(debug = false) {
   const [connectionState, setConnectionState] = useState(
     connectionStatus[ReadyState.CLOSED],
   );
   const [handshake, setHandshake] = useState<Handshake | null>(null);
-  const [connectedPlayers, setConnectedPlayers] = useState<PlayerType[]>([]);
+  const testDataHook = useTestData();
+  const stateHook = useState<PlayerType[]>([]);
+  const [connectedPlayers, setConnectedPlayers] = debug
+    ? testDataHook
+    : stateHook;
 
   // Connect to BeatSaberPlus to receive messages
   // If it fails, try again after 5 seconds
@@ -134,6 +139,7 @@ export default function useMultiplayer() {
       );
     }
     checkPacket();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastJsonMessage]);
 
   return { connectionState, readyState, handshake, connectedPlayers };

@@ -41,13 +41,3 @@
   align-items: flex-end;
   justify-content: flex-end;
 }
-
-.divider {
-  width: 28.75rem;
-  height: 2em;
-  font-weight: bold;
-  background-color: var(--clr-divider);
-  padding: 0.2em 0.5em 0.8em 0.5em;
-  gap: 0.5em;
-  border-radius: 0.25em;
-}

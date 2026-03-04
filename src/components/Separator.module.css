@@ -1,0 +1,18 @@
+.separator {
+  width: calc(
+    var(--w-rank) + var(--w-avatar) + var(--w-name) + var(--w-score) +
+      var(--w-miss) + var(--w-acc) + calc(var(--gap) * 5) +
+      calc(var(--padding) * 2)
+  );
+  height: 2em;
+  color: var(--clr-fg);
+  background-color: var(--clr-separator);
+  border-radius: 0.25em;
+  display: flex;
+  align-items: center;
+  padding-left: 1ch;
+}
+
+.separator svg {
+  max-width: 2ch;
+}

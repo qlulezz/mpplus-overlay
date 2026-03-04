@@ -6,7 +6,7 @@
   --clr-second: #afafaf;
   --clr-third: #9e5a21;
 
-  --clr-divider: #5c569e;
+  --clr-separator: #5c569e;
 }
 
 *,
@@ -60,4 +60,15 @@ body {
     "Open Sans",
     "Helvetica Neue",
     sans-serif;
+
+  /* Player Base Width */
+  --w-rank: 2.1em;
+  --w-avatar: 2.4em;
+  --w-name: 10em;
+  --w-score: 4.8em;
+  --w-miss: 2.8em;
+  --w-acc: 4em;
+
+  --gap: 0em;
+  --padding: 0.5em;
 }
