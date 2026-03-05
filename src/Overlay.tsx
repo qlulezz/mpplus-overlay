@@ -23,18 +23,18 @@ export default function Overlay() {
   const playersRef = useRef<HTMLDivElement | null>(null);
   // Get parameters from url
   const [position] = useQueryState("position", parseAsString);
-  const [scale] = useQueryState("scale", parseAsFloat);
-  const [duration] = useQueryState("duration", parseAsInteger);
-  const [debug] = useQueryState("debug", parseAsBoolean);
+  const [scale] = useQueryState("scale", parseAsFloat.withDefault(1));
+  const [duration] = useQueryState("duration", parseAsInteger.withDefault(200));
   const [podium] = useQueryState("podium", parseAsBoolean.withDefault(true));
+  const [debug] = useQueryState("debug", parseAsBoolean.withDefault(false));
 
   // Get connected players from the multiplayer room
-  const { connectedPlayers } = useMultiplayer(!!debug);
+  const { connectedPlayers } = useMultiplayer(debug);
 
   useEffect(() => {
     if (playersRef.current) {
       autoAnimate(playersRef.current, {
-        duration: duration ?? 200,
+        duration: duration,
         easing: "ease-in-out",
       });
     }
@@ -77,7 +77,7 @@ export default function Overlay() {
       <div
         className={`${styles.players} ${positionStyle}`}
         ref={playersRef}
-        style={scale ? { zoom: scale } : {}}
+        style={{ fontSize: `${scale * 100}%` }}
       >
         {renderedPlayers}
       </div>
