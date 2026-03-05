@@ -7,6 +7,7 @@ import {
   parseAsString,
   parseAsFloat,
   parseAsInteger,
+  parseAsBoolean,
 } from "nuqs";
 import autoAnimate from "@formkit/auto-animate";
 import Separator from "./components/Separator";
@@ -24,9 +25,10 @@ export default function Overlay() {
   const [position] = useQueryState("position", parseAsString);
   const [scale] = useQueryState("scale", parseAsFloat);
   const [duration] = useQueryState("duration", parseAsInteger);
+  const [debug] = useQueryState("debug", parseAsBoolean);
 
   // Get connected players from the multiplayer room
-  const { connectedPlayers } = useMultiplayer();
+  const { connectedPlayers } = useMultiplayer(!!debug);
 
   useEffect(() => {
     if (playersRef.current) {

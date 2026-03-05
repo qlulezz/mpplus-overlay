@@ -16,13 +16,9 @@
 
 /* Corner styles */
 
-.players {
-  /* Default: top-left */
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
+.players,
 .top_left {
+  /* Default: top-left */
   align-items: flex-start;
   justify-content: flex-start;
 }
