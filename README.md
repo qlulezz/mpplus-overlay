@@ -26,10 +26,11 @@ Example: `https://mpplus.qlulezz.de/?position=bottom-left&scale=1.2`
 
 The following settings are currently supported:
 
-| Name     | Explanation                            | Default  | Example                | Accepted values                                |
-| -------- | -------------------------------------- | -------- | ---------------------- | ---------------------------------------------- |
-| position | Which corner should the overlay go in? | top-left | ?position=bottom-right | top-left, top-right, bottom-left, bottom-right |
-| scale    | scale multiplier                       | 1.0      | ?scale=1.5             | Float between 0 and Infinity                   |
+| Name     | Explanation                                                                       | Default  | Example                | Accepted values                                |
+| -------- | --------------------------------------------------------------------------------- | -------- | ---------------------- | ---------------------------------------------- |
+| position | The corner the overlay should go in.                                              | top-left | ?position=bottom-right | top-left, top-right, bottom-left, bottom-right |
+| scale    | Scaling multiplier with the origin in the specified corner.                       | 1.0      | ?scale=1.5             | Float between 0.0 and Infinity                 |
+| duration | The time it takes to run the animations of player ranks changing in milliseconds. | 200      | ?duration=0            | Integer between 0 and Infinity                 |
 
 More settings will be added later.
 

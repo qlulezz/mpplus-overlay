@@ -2,7 +2,12 @@ import { useEffect, useRef } from "react";
 import Player from "./components/Player";
 import useMultiplayer from "./hooks/useMultiplayer";
 import styles from "./Overlay.module.css";
-import { parseAsFloat, parseAsString, useQueryState } from "nuqs";
+import {
+  useQueryState,
+  parseAsString,
+  parseAsFloat,
+  parseAsInteger,
+} from "nuqs";
 import autoAnimate from "@formkit/auto-animate";
 import Separator from "./components/Separator";
 
@@ -18,6 +23,7 @@ export default function Overlay() {
   // Get parameters from url
   const [position] = useQueryState("position", parseAsString);
   const [scale] = useQueryState("scale", parseAsFloat);
+  const [duration] = useQueryState("duration", parseAsInteger);
 
   // Get connected players from the multiplayer room
   const { connectedPlayers } = useMultiplayer();
@@ -25,14 +31,16 @@ export default function Overlay() {
   useEffect(() => {
     if (playersRef.current) {
       autoAnimate(playersRef.current, {
-        duration: 200,
+        duration: duration ?? 200,
         easing: "ease-in-out",
       });
     }
-  }, []);
+  }, [duration]);
 
   // Change styles of the overlay if position is given
-  const positionStyle = position ? (overlayPositions[position] ?? "") : "";
+  const positionStyle = position
+    ? (overlayPositions[position.toLowerCase()] ?? "")
+    : "";
 
   // Sort players by highest accuracy
   const players = connectedPlayers.sort(
