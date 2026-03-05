@@ -26,6 +26,7 @@ export default function Overlay() {
   const [scale] = useQueryState("scale", parseAsFloat);
   const [duration] = useQueryState("duration", parseAsInteger);
   const [debug] = useQueryState("debug", parseAsBoolean);
+  const [podium] = useQueryState("podium", parseAsBoolean.withDefault(true));
 
   // Get connected players from the multiplayer room
   const { connectedPlayers } = useMultiplayer(!!debug);
@@ -56,7 +57,8 @@ export default function Overlay() {
     const id = p.player.LUID;
 
     // Render up to 4 players
-    if (i < 4) return <Player key={id} rank={rank} player={p} />;
+    if (i < 4)
+      return <Player key={id} rank={rank} player={p} podium={podium} />;
 
     // Render seprator if over 5 players
     if (count > 5 && rank === 5) return <Separator key={0} />;
@@ -82,4 +84,3 @@ export default function Overlay() {
     </div>
   );
 }
-

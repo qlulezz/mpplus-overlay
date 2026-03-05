@@ -4,11 +4,12 @@ import styles from "./Player.module.css";
 interface PlayerProps {
   rank: number;
   player: PlayerType;
+  podium?: boolean;
 }
 
 const rankStyles = [styles.first, styles.second, styles.third];
 
-export default function Player({ rank, player }: PlayerProps) {
+export default function Player({ rank, player, podium }: PlayerProps) {
   const userId = player.player.UserID;
 
   // Multiplayer+ stores Oculus and Steam IDs similar to ScoreSaber
@@ -28,7 +29,7 @@ export default function Player({ rank, player }: PlayerProps) {
 
   // Apply styles to the first three players, but only if the score is not 0
   const rankStyle =
-    rank <= 3 && player.score.Score !== 0 ? rankStyles[rank - 1] : "";
+    podium && rank <= 3 && player.score.Score !== 0 ? rankStyles[rank - 1] : "";
 
   // Set the rank to 0 when the score is 0
   const userRank = player.score.Score !== 0 ? rank : 0;
