@@ -3,8 +3,8 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 import type { Handshake, PlayerType, Packet } from "../utils/types";
 import useTestData from "./useTestData";
 
-// BeatSaberPlus WebSocket URL for Room Info and Scores
-const webSocketUrl = "ws://127.0.0.1:2948/socket";
+// Connects to the BeatSaberPlus WebSocket for Room Info and Scores
+// By default available at "ws://127.0.0.1:2948/socket"
 
 // Mapping for Easy-to-Read WebSocket connection state
 const connectionStatus = {
@@ -15,7 +15,7 @@ const connectionStatus = {
   [ReadyState.UNINSTANTIATED]: "Uninstantiated",
 };
 
-export default function useMultiplayer(debug = false) {
+export default function useMultiplayer(debug = false, ip = "127.0.0.1:2948") {
   const [connectionState, setConnectionState] = useState(
     connectionStatus[ReadyState.CLOSED],
   );
@@ -28,9 +28,8 @@ export default function useMultiplayer(debug = false) {
 
   // Connect to BeatSaberPlus to receive messages
   // If it fails, try again after 5 seconds
-  const { lastJsonMessage, readyState } = useWebSocket(webSocketUrl, {
+  const { lastJsonMessage, readyState } = useWebSocket(`ws://${ip}/socket`, {
     shouldReconnect: () => true,
-    reconnectAttempts: 100,
     reconnectInterval: 5000,
   });
 

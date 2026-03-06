@@ -23,13 +23,14 @@ export default function Overlay() {
   const playersRef = useRef<HTMLDivElement | null>(null);
   // Get parameters from url
   const [position] = useQueryState("position", parseAsString);
+  const [ip] = useQueryState("ip", parseAsString);
   const [scale] = useQueryState("scale", parseAsFloat.withDefault(1));
   const [duration] = useQueryState("duration", parseAsInteger.withDefault(200));
   const [podium] = useQueryState("podium", parseAsBoolean.withDefault(true));
   const [debug] = useQueryState("debug", parseAsBoolean.withDefault(false));
 
   // Get connected players from the multiplayer room
-  const { connectedPlayers } = useMultiplayer(debug);
+  const { connectedPlayers } = useMultiplayer(debug, ip ?? undefined);
 
   useEffect(() => {
     if (playersRef.current) {
