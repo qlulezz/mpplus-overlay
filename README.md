@@ -30,6 +30,7 @@ The following settings are currently supported:
 | -------- | ------------------------------------------------------------------------------------------------ | -------------- | ------------------------ | ---------------------------------------------- |
 | position | The corner the overlay should go in.                                                             | top-left       | ?position=bottom-right   | top-left, top-right, bottom-left, bottom-right |
 | scale    | Scaling multiplier with the origin in the specified corner.                                      | 1.0            | ?scale=1.5               | Float between 0.0 and Infinity                 |
+| maxcount | Maximum player count. Will only show the top players if set at 3 or below.                       | 5              | ?maxcount=3              | Integer between 1 and Infinity                 |
 | ip       | If you use a second PC to stream, write the IP address and port of the PC running the game here. | 127.0.0.1:2948 | ?ip=192.168.178.112:2948 | IP address + port                              |
 | duration | The time it takes to run the animations of player ranks changing in milliseconds.                | 200            | ?duration=0              | Integer between 0 and Infinity                 |
 | podium   | Styles the first three players in gold, silver and bronze colors.                                | true           | ?podium=false            | Boolean                                        |

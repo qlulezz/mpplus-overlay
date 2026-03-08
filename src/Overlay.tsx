@@ -25,6 +25,7 @@ export default function Overlay() {
   const [position] = useQueryState("position", parseAsString);
   const [ip] = useQueryState("ip", parseAsString);
   const [scale] = useQueryState("scale", parseAsFloat.withDefault(1));
+  const [maxcount] = useQueryState("maxcount", parseAsInteger.withDefault(5));
   const [duration] = useQueryState("duration", parseAsInteger.withDefault(200));
   const [podium] = useQueryState("podium", parseAsBoolean.withDefault(true));
   const [debug] = useQueryState("debug", parseAsBoolean.withDefault(false));
@@ -57,15 +58,22 @@ export default function Overlay() {
     const rank = i + 1;
     const id = p.player.LUID;
 
-    // Render up to 4 players
-    if (i < 4)
+    // For a count of 3 or less, only show the top players
+    if (maxcount <= 3 && rank < maxcount + 1)
+      return <Player key={id} rank={rank} player={p} podium={podium} />;
+    if (maxcount <= 3) return;
+
+    // Render players
+    // default: up to 4
+    if (i < maxcount - 1)
       return <Player key={id} rank={rank} player={p} podium={podium} />;
 
-    // Render seprator if over 5 players
-    if (count > 5 && rank === 5) return <Separator key={0} />;
+    // Render seprator if over maxcount players
+    // default: 5th player
+    if (count > maxcount && rank === maxcount) return <Separator key={0} />;
 
     // Render last player (or 5th player)
-    if (count > 4 && rank === count)
+    if (count > maxcount - 1 && rank === count)
       return <Player key={id} rank={rank} player={p} />;
   });
 
