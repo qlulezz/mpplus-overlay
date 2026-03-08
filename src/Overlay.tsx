@@ -28,6 +28,7 @@ export default function Overlay() {
   const [maxcount] = useQueryState("maxcount", parseAsInteger.withDefault(5));
   const [duration] = useQueryState("duration", parseAsInteger.withDefault(200));
   const [podium] = useQueryState("podium", parseAsBoolean.withDefault(true));
+  const [flash] = useQueryState("flash", parseAsBoolean.withDefault(true));
   const [debug] = useQueryState("debug", parseAsBoolean.withDefault(false));
 
   // Get connected players from the multiplayer room
@@ -60,13 +61,17 @@ export default function Overlay() {
 
     // For a count of 3 or less, only show the top players
     if (maxcount <= 3 && rank < maxcount + 1)
-      return <Player key={id} rank={rank} player={p} podium={podium} />;
+      return (
+        <Player key={id} rank={rank} player={p} podium={podium} flash={flash} />
+      );
     if (maxcount <= 3) return;
 
     // Render players
     // default: up to 4
     if (i < maxcount - 1)
-      return <Player key={id} rank={rank} player={p} podium={podium} />;
+      return (
+        <Player key={id} rank={rank} player={p} podium={podium} flash={flash} />
+      );
 
     // Render seprator if over maxcount players
     // default: 5th player
@@ -74,7 +79,7 @@ export default function Overlay() {
 
     // Render last player (or 5th player)
     if (count > maxcount - 1 && rank === count)
-      return <Player key={id} rank={rank} player={p} />;
+      return <Player key={id} rank={rank} player={p} flash={flash} />;
   });
 
   // Reverse order if the overlay is positioned at the bottom

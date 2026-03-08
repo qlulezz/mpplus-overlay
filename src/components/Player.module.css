@@ -13,6 +13,8 @@
   padding: var(--padding);
   gap: var(--gap);
   border-radius: 0.25em;
+  position: relative;
+  overflow: hidden;
 }
 
 .name {
@@ -59,4 +61,25 @@
   /* zoom: 1.05; */
   font-size: 1.05em;
   background-color: var(--clr-third);
+}
+
+.flash {
+  position: absolute;
+  inset: 0;
+}
+
+.flashing {
+  animation: flash-red 400ms ease;
+}
+
+@keyframes flash-red {
+  0% {
+    background: transparent;
+  }
+  50% {
+    background: rgba(255, 0, 0, 0.3);
+  }
+  100% {
+    background: transparent;
+  }
 }
