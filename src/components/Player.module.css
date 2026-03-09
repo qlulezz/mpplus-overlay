@@ -37,14 +37,6 @@
   font-weight: bold;
 }
 
-.avatar {
-  border-radius: 100vh;
-  width: 2em;
-  height: 2em;
-  max-width: 2em;
-  max-height: 2em;
-}
-
 .first {
   /* zoom: 1.15; */
   font-size: 1.15em;

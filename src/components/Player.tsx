@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { PlayerType } from "../utils/types";
 import styles from "./Player.module.css";
+import Avatar from "./Avatar";
 
 interface PlayerProps {
   rank: number;
@@ -23,14 +24,6 @@ export default function Player({ rank, player, podium, flash }: PlayerProps) {
     if (missCount > prevMissCount.current) setFlashing(true);
     prevMissCount.current = missCount;
   }, [missCount]);
-
-  const userId = player.player.UserID;
-
-  // Multiplayer+ stores Oculus and Steam IDs similar to ScoreSaber
-  // Use Oculus icon by default, switch to Steam avatar if detected
-  let avatarUrl = "https://cdn.scoresaber.com/avatars/oculus.png";
-  if (userId.startsWith("76561") && userId.length === 17)
-    avatarUrl = `https://cdn.scoresaber.com/avatars/${userId}.jpg`;
 
   // Format score to use commas or dots
   const score = player.score.Score.toLocaleString();
@@ -55,7 +48,7 @@ export default function Player({ rank, player, podium, flash }: PlayerProps) {
         onAnimationEnd={() => setFlashing(false)}
       />
       <p className={styles.rank}>#{userRank}</p>
-      <img src={avatarUrl} alt="" className={styles.avatar} />
+      <Avatar id={player.player.UserID} />
       <p className={styles.name}>{player.player.UserName}</p>
       <p className={styles.score}>{score}</p>
       <p className={styles.miss}>{miss}</p>
