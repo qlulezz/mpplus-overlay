@@ -11,6 +11,7 @@ import {
 } from "nuqs";
 import autoAnimate from "@formkit/auto-animate";
 import Separator from "./components/Separator";
+import type { PlayerType } from "./utils/types";
 
 const overlayPositions: Record<string, string> = {
   "top-left": styles.top_left,
@@ -49,17 +50,10 @@ export default function Overlay() {
     : "";
 
   // Sort players by highest accuracy
-  // Put newly joined players and deleted scores at the bottom
   const players = connectedPlayers.sort((a, b) => {
-    if (a.score.Deleted === b.score.Deleted) {
-      if (a.score.Score === 0 && b.score.Score === 0)
-        return b.score.Accuracy - a.score.Accuracy;
-      if (a.score.Score === 0) return 1;
-      if (b.score.Score === 0) return -1;
-      return b.score.Accuracy - a.score.Accuracy;
-    }
-
-    return a.score.Deleted ? 1 : -1;
+    const rankDiff = getSort(a) - getSort(b);
+    if (rankDiff !== 0) return rankDiff;
+    return b.score.Accuracy - a.score.Accuracy;
   });
 
   // Reverse direction if at the bottom of the screen
@@ -106,4 +100,12 @@ export default function Overlay() {
       </div>
     </div>
   );
+}
+
+// Put newly joined players and deleted scores at the bottom
+function getSort(p: PlayerType) {
+  // higher sort = lower priority
+  if (p.score.Score === 0) return 2;
+  if (p.score.Deleted) return 1;
+  return 0; // regular players
 }

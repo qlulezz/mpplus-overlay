@@ -12,6 +12,7 @@ export default function Avatar({ id }: AvatarProps) {
   const isSteamId = id.startsWith("76561") && id.length === 17;
   const url = isSteamId ? `${SS_CDN}/${id}.jpg` : `${SS_CDN}/oculus.png`;
 
+  // Replace the image url with default Steam '?' avatar if something breaks
   const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src = `${SS_CDN}/steam.png`;
   };
