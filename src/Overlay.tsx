@@ -49,9 +49,12 @@ export default function Overlay() {
     : "";
 
   // Sort players by highest accuracy
-  const players = connectedPlayers.sort(
-    (a, b) => b.score.Accuracy - a.score.Accuracy,
-  );
+  const players = connectedPlayers.sort((a, b) => {
+    if (a.score.Deleted === b.score.Deleted)
+      return b.score.Accuracy - a.score.Accuracy;
+
+    return a.score.Deleted ? 1 : -1;
+  });
 
   // Reverse direction if at the bottom of the screen
   const renderedPlayers = players.map((p, i) => {
