@@ -49,9 +49,15 @@ export default function Overlay() {
     : "";
 
   // Sort players by highest accuracy
+  // Put newly joined players and deleted scores at the bottom
   const players = connectedPlayers.sort((a, b) => {
-    if (a.score.Deleted === b.score.Deleted)
+    if (a.score.Deleted === b.score.Deleted) {
+      if (a.score.Score === 0 && b.score.Score === 0)
+        return b.score.Accuracy - a.score.Accuracy;
+      if (a.score.Score === 0) return 1;
+      if (b.score.Score === 0) return -1;
       return b.score.Accuracy - a.score.Accuracy;
+    }
 
     return a.score.Deleted ? 1 : -1;
   });
