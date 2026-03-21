@@ -29,8 +29,10 @@ export default function useMultiplayer(debug = false, ip = "127.0.0.1:2948") {
   // Connect to BeatSaberPlus to receive messages
   // If it fails, try again after 5 seconds
   const { lastJsonMessage, readyState } = useWebSocket(`ws://${ip}/socket`, {
+    retryOnError: true,
     shouldReconnect: () => true,
     reconnectInterval: 5000,
+    reconnectAttempts: Infinity,
   });
 
   useEffect(() => {

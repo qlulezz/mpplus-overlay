@@ -107,5 +107,5 @@ function getSort(p: PlayerType) {
   // higher sort = lower priority
   if (p.score.Score === 0) return 2;
   if (p.score.Deleted) return 1;
-  return 0; // regular players
+  return 0; // regular scores
 }
