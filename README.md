@@ -3,6 +3,8 @@
 This overlay can be used in combination with the Multiplayer+ Plugin as part of BeatSaberPlus by [HardCPP](https://github.com/hardcpp).<br>
 It is visually similar to the original overlay by [Hyldra Zolxy](https://github.com/HyldraZolxy), which was shut down in March of 2026.
 
+<img src="./src/assets/preview.gif">
+
 _The code is entirely hand-written by me from scratch, no AI and no code from people not credited has been used._
 
 ## Installation
